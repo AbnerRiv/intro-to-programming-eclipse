@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //select fields to log them in the console
     const name = e.target.children[2].value
     const email = e.target.children[6].value
-    const message = e.target.children[10].value
+    const message = e.target.children[11].value
     console.log( `Name: ${name}\nEmail: ${email}\nMessage: ${message}`)
 
     //clear the input fields
