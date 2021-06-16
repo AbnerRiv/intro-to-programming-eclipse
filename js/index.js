@@ -1,125 +1,130 @@
-let today = new Date()
-let thisYear = today.getFullYear()
+document.addEventListener('DOMContentLoaded', () => {
+  let today = new Date()
+  let thisYear = today.getFullYear()
 
-const footer = document.querySelector('footer')
+  const footer = document.querySelector('footer')
+  const copyright = document.createElement('p')
+  copyright.innerHTML = `&copy; Abner Rivera ${thisYear} `
+  footer.appendChild(copyright)
 
-const copyright = document.createElement('p')
+  let skills = ['Javascript', 'HTML', 'CSS', 'Java', 'Python']
 
-copyright.innerHTML = `&copy; Abner ${thisYear} `
-footer.appendChild(copyright)
+  const skillsSection = document.querySelector('#skills')
 
-let skills = ['Javascript', 'HTML', 'CSS', 'Java', 'Python']
+  const skillsList = skillsSection.querySelector('ul')
 
-const skillsSection = document.querySelector('#skills')
+  for(let skill in skills){
+    let li = document.createElement('li')
+    li.innerHTML = skills[skill]
+    skillsList.appendChild(li)
+  }
 
-const skillsList = skillsSection.querySelector('ul')
+  /*
+  Adding code as Week 06/02
+  */
+  const messageForm = document.querySelector("[name='leave_message']")
 
-for(let skill in skills){
-  let li = document.createElement('li')
-  li.innerHTML = skills[skill]
-  skillsList.appendChild(li)
-}
+  // Stretch task #1
+  const messageSection = document.querySelector('#messages')
+  const messageH2 = messageSection.firstElementChild
+  messageH2.style.display = 'none'
 
-/*
-Adding code as Week 06/02
-*/
-const messageForm = document.querySelector("[name='leave_message']")
+  const messageList = messageSection.querySelector('ul')
+  //start From add action listener
+  messageForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    //select fields to log them in the console
+    const name = e.target.children[2].value
+    const email = e.target.children[6].value
+    const message = e.target.children[10].value
+    console.log( `Name: ${name}\nEmail: ${email}\nMessage: ${message}`)
 
-// Stretch task #1
-const messageSection = document.querySelector('#messages')
-const messageH2 = messageSection.firstElementChild
-messageH2.style.display = 'none'
+    //clear the input fields
+    messageForm.reset()
 
-const messageList = messageSection.querySelector('ul')
-//start From add action listener
-messageForm.addEventListener('submit', (e) => {
-  e.preventDefault()
-  //select fields to log them in the console
-  const name = e.target.children[2].value
-  const email = e.target.children[6].value
-  const message = e.target.children[10].value
-  console.log( `Name: ${name}\nEmail: ${email}\nMessage: ${message}`)
+    // make Message heading lvl 2 visible again
+    messageH2.style.display = ''
 
-  //clear the input fields
-  messageForm.reset()
+    //put list item messages in ul
+    const newMessage = document.createElement('li')
+    newMessage.innerHTML = `<a href="mailto:${email}">${name}</a><span> wrote: ${message} </span>`
 
-  // make Message heading lvl 2 visible again
-  messageH2.style.display = ''
+    //create Remove button
+    const removeButton = document.createElement('button')
+    removeButton.innerHTML = 'remove'
+    removeButton.type = 'button'
 
-  //put list item messages in ul
-  const newMessage = document.createElement('li')
-  newMessage.innerHTML = `<a href="mailto:${email}">${name}</a><span> wrote: ${message} </span>`
+    // Stretch task #2
+    const editButton = document.createElement('button')
+    editButton.innerHTML = 'edit'
+    editButton.type = 'button'
 
-  //create Remove button
-  const removeButton = document.createElement('button')
-  removeButton.innerHTML = 'remove'
-  removeButton.type = 'button'
-
-  // Stretch task #2
-  const editButton = document.createElement('button')
-  editButton.innerHTML = 'edit'
-  editButton.type = 'button'
-
-  //add them to the DOM
-  newMessage.appendChild(editButton)
-  newMessage.appendChild(removeButton)
-  messageList.appendChild(newMessage)
-})// end messageFrom action listener
+    const myBr = document.createElement('br')
+    const myHr = document.createElement('hr')
+    //add them to the DOM
+    newMessage.appendChild(editButton)
+    newMessage.appendChild(removeButton)
+    newMessage.insertBefore(myBr, editButton)
+    newMessage.appendChild(myHr)
+    messageList.appendChild(newMessage)
+  })// end messageFrom action listener
 
 
-//stretch Task #2
-messageList.addEventListener('click', (e) => {
-  //using method bubbling check it's a button
-  if(e.target.tagName === 'BUTTON'){
-    const button = e.target
-    const action = button.innerHTML
+  //stretch Task #2
+  messageList.addEventListener('click', (e) => {
+    //using method bubbling check it's a button
+    if(e.target.tagName === 'BUTTON'){
+      const button = e.target
+      const action = button.innerHTML
 
-    const nameActions = {
+      const namedActions = {
 
-      remove: () => {
-        const li = button.parentNode
-        const lu = li.parentNode
+        remove: () => {
+          const li = button.parentNode
+          const ul = li.parentNode
 
-        lu.removeChild(li)
+          ul.removeChild(li)
 
-        //check if Message list is empty to hide Message heading again
-        if(messageList.children.length === 0){
-          messageH2.style.display = 'none'
-        }//end changing button name
-      },
+          //check if Message list is empty to hide Message heading again
+          if(messageList.children.length === 0){
+            messageH2.style.display = 'none'
+          }//end changing button name
+        },
 
-      edit: () =>{
-        const li = button.parentNode
-        const span = li.firstElementChild.nextElementSibling
-        const input = document.createElement('input')
-        input.type = 'text'
+        edit: () =>{
+          const li = button.parentNode
+          const span = li.firstElementChild.nextElementSibling
+          const input = document.createElement('input')
+          input.type = 'text'
 
-        li.insertBefore(input, span)
-        li.removeChild(span)
+          li.insertBefore(input, span)
+          li.removeChild(span)
 
-        //do nothing
-        //change from edit to save
-        if(button.innerHTML === 'edit'){
-          button.innerHTML = 'save'
-        }//end changing button name
-      },
+          //do nothing
+          //change from edit to save
+          if(button.innerHTML === 'edit'){
+            button.innerHTML = 'save'
+          }//end changing button name
+        },
 
-      save: () => {
-        const li = button.parentNode
-        const input = li.firstElementChild.nextElementSibling
-        const span = document.createElement('span')
-        span.innerHTML = ` wrote: ${input.value} `
+        save: () => {
+          const li = button.parentNode
+          const input = li.firstElementChild.nextElementSibling
+          const span = document.createElement('span')
+          span.innerHTML = ` wrote: ${input.value} `
 
-        li.insertBefore(span, input)
-        li.removeChild(input)
+          li.insertBefore(span, input)
+          li.removeChild(input)
 
-        //change from save to edit
-        if(button.innerHTML === 'save'){
-          button.innerHTML = 'edit'
-        }//end changing button name
-      }
-    }// end Object
-    nameActions[action]();// run the function
+          //change from save to edit
+          if(button.innerHTML === 'save'){
+            button.innerHTML = 'edit'
+          }//end changing button name
+        }
+      }// end Object
+      namedActions[action]();// run the function
 
-  }// end checking if it's a button
-})// end messageList add action listener
+    }// end checking if it's a button
+  })// end messageList add action listener
+
+})// end DOM Content Loaded
