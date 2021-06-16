@@ -8,7 +8,9 @@ html{
   font-family: "Josefin Sans", system-ui, cursive, Arial;
   font-weight: 600;
 }
-
+.break{
+  display: none;
+}
 body{
   background-color: #dcf4f3;
 }
@@ -40,7 +42,6 @@ p {
     margin-block-start: 0;
     margin-block-end: 0;
 }
-
 
 
 h1, h2{
@@ -167,11 +168,18 @@ footer{
  form{
    display: flex;
    flex-wrap: wrap;
-   align-items: middle;
  }
-
+ .break{
+   display: block;
+   flex-basis: 100%;
+   height: 0;
+ }
 .labelMessage{
-    margin-left: 1.1rem;
+    padding-top: 1rem;
+ }
+ form label{
+   padding-left: 1rem;
+   padding-top: 0.5rem;
  }
  form button{
    margin-top: 0.1rem;
@@ -192,19 +200,4 @@ footer{
   .experience ul li{
     max-width: 80%;
   }
-  form{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-  }
-  form label{
-    padding-bottom: 0.8rem;
-  }
-  .labelMessage{
-      margin-left: 6.5rem;
-   }
-   form button{
-     margin-right: 14.2rem;
-   }
 }
