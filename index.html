@@ -7,71 +7,84 @@
     <!-- used to make the page a bit scalable-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="js/index.js"> </script>
+
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/grid.css">
+
     <!--Adding a font from Google fonts-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@1,300&display=swap" rel="stylesheet">
   </head>
 
   <body>
-    <!-- The About section-->
-    <section class="about">
-      <img src="img/webPic.jpg" alt="a picture of me">
-      <span>Abner Rivera</span>
-      <h1>About</h1>
-      <p>
-      My Name is Abner Rivera. I am 22 years old. I am very passionate about coding<br>
-      I would like to get a coding job to support my family and have a better quality of life<br>
-      I really like Javascript mainly because of its flexibility
-      </p>
-    </section>
+    <div class="wrapper">
 
-    <!-- The Experience section-->
-    <section class="experience">
-
-    <h1>Experience</h1>
-    <ul>
-        <li><p>Customer Service - Ibex </p><span>01/2018 – 08/2018</span></li>
-        <li><p>Appointment Setter - Tri-Source International</p><span>04/2020 – 12/2020</span></li>
-        <li><p>English-Spanish Interpreter - Teleperformance</p><span>03/2021 – 05/2021</span></li>
-    </ul>
-
-    </section>
-
-    <!-- The skill section-->
-    <section id='skills'>
-      <h2>Skills</h2>
-      <ul></ul>
-    </section>
-
-
-    <!-- Form Section -->
-    <section>
-      <h2>Leave a Message</h2>
-      <form name="leave_message">
-        <label>Name</label><br><input type="text" name="name" required><br>
-        <label>Email</label><br><input type="email" name="email" required><br>
-        <div class="break"></div><label class='labelMessage'>Message</label><br><textarea name="message" required></textarea><br>
-        <div class="break"></div>
-        <button type="submit">Submit</button><br>
-      </form>
-    </section>
-
-    <section id="messages">
-      <h2>Messages</h2>
-      <ul></ul>
-    </section>
-
-    <!-- Footer tag-->
-    <footer>
-      <!-- the connect section-->
-      <div class="connect">
-            <a target="_blank" href="https://github.com/AbnerRiv"><img class="img-size" src="img/gHLogo.png" alt="github logo"></a>
-            <a target="_blank" href="https://www.facebook.com/profile.php?id=100008821126865"><img class="img-size" src="img/fbLogo.png" alt="facebook logo"></a>
-            <a target="_blank" href="https://www.instagram.com/abnerriverat/"><img class="img-size" src="img/InstaLogo.png" alt="instagram logo"></a>
+      <!-- The nav section-->
+      <div class="nav">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#form">Leave a Message</a>
+        <a href="#messages">Messages</a>
+        <a href="#footer">Footer</a>
       </div>
-    </footer>
+      <!-- The About section-->
+      <div class="about" id="about">
+        <img src="img/webPic.jpg" alt="a picture of me">
+        <span>Abner Rivera</span>
+        <h1>About</h1>
+        <p>
+        My Name is Abner Rivera. I am 22 years old. I am very passionate about coding<br>
+        I would like to get a coding job to support my family and have a better quality of life<br>
+        I really like Javascript mainly because of its flexibility
+        </p>
+      </div>
 
+
+
+      <!-- The Experience section-->
+      <div class="experience" id="experience">
+        <div><h1>Experience</h1></div>
+        <div><p>Customer Service - Ibex </p><span>01/2018 – 08/2018</span></div>
+        <div><p>Appointment Setter - Tri-Source International</p><span>04/2020 – 12/2020</span></div>
+        <div><p>English-Spanish Interpreter - Teleperformance</p><span>03/2021 – 05/2021</span></div>
+
+    </div>
+
+      <!-- The skill section-->
+      <div class="skills" id="skills">
+        <h2>Skills</h2>
+        <ul></ul>
+      </div>
+
+
+      <!-- Form Section -->
+      <div class="form" id="form">
+        <h2>Leave a Message</h2>
+        <form name="leave_message">
+          <div class="item-name"><label for="name">Name</label><input id="name" type="text" name="name" required></div>
+          <div class="item-email"><label for="email">Email</label><input id="email" type="email" name="email" required></div>
+          <div class="item-message"><label for="message" class='labelMessage'>Message</label><textarea id="message" name="message" required></textarea></div>
+          <div class="item-button"><button type="submit">Submit</button></div>
+        </form>
+      </div>
+
+      <div class="messages" id="messages">
+        <h2>Messages</h2>
+        <ul></ul>
+      </div>
+
+      <!-- Footer tag-->
+      <footer id="footer">
+        <!-- copyright was created in js and wrapped  -->
+        <!-- the connect section-->
+        <div class="connect">
+              <a target="_blank" href="https://github.com/AbnerRiv"><img class="img-size" src="img/gHLogo.png" alt="github logo"></a>
+              <a target="_blank" href="https://www.facebook.com/profile.php?id=100008821126865"><img class="img-size" src="img/fbLogo.png" alt="facebook logo"></a>
+              <a target="_blank" href="https://www.instagram.com/abnerriverat/"><img class="img-size" src="img/InstaLogo.png" alt="instagram logo"></a>
+        </div>
+      </footer>
+    </div>
 
   </body>
 </html>

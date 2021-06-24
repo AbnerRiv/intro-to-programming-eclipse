@@ -4,8 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const footer = document.querySelector('footer')
   const copyright = document.createElement('p')
+  const myDiv = document.createElement('div')
+
   copyright.innerHTML = `&copy; Abner Rivera ${thisYear} `
-  footer.appendChild(copyright)
+  myDiv.appendChild(copyright)
+  footer.appendChild(myDiv)
 
   let skills = ['Javascript', 'HTML', 'CSS', 'Java', 'Python']
 
@@ -23,20 +26,36 @@ document.addEventListener('DOMContentLoaded', () => {
   Adding code as Week 06/02
   */
   const messageForm = document.querySelector("[name='leave_message']")
-
+  const messageLink = document.querySelector("[href='#messages']")
   // Stretch task #1
   const messageSection = document.querySelector('#messages')
   const messageH2 = messageSection.firstElementChild
-  messageH2.style.display = 'none'
-
   const messageList = messageSection.querySelector('ul')
+
+  // set an empty string to keep adding things to it
+  if(localStorage.length !== 0 && localStorage['str'] !== ''){
+    let myArr = localStorage['str'].split("*")
+    myArr.forEach( (item) => {
+      if(item.includes("<a")){
+        const li = document.createElement('li')
+        li.innerHTML = item
+        messageList.appendChild(li)
+      }// end checking if
+    })// end for each
+  }else{
+    // this is the first time loading tha page
+    messageH2.style.display = 'none'
+    messageLink.style.display = 'none'
+    localStorage.setItem('str', '')
+
+  }
   //start From add action listener
   messageForm.addEventListener('submit', (e) => {
     e.preventDefault()
     //select fields to log them in the console
-    const name = e.target.children[2].value
-    const email = e.target.children[6].value
-    const message = e.target.children[11].value
+    const name = document.querySelector('#name').value
+    const email = document.querySelector('#email').value
+    const message = document.querySelector('#message').value
     console.log( `Name: ${name}\nEmail: ${email}\nMessage: ${message}`)
 
     //clear the input fields
@@ -44,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // make Message heading lvl 2 visible again
     messageH2.style.display = ''
-
+    messageLink.style.display = ''
     //put list item messages in ul
     const newMessage = document.createElement('li')
     newMessage.innerHTML = `<a href="mailto:${email}">${name}</a><span> wrote: ${message} </span>`
@@ -67,6 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
     newMessage.insertBefore(myBr, editButton)
     newMessage.appendChild(myHr)
     messageList.appendChild(newMessage)
+
+    localStorage['str'] += name + "*"
+    localStorage['str'] += newMessage.innerHTML + "*"
   })// end messageFrom action listener
 
 
@@ -85,9 +107,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
           ul.removeChild(li)
 
+          /* erasing from local storage */
+          //get the string and convert it to an array
+          let myArr = localStorage['str'].split("*")
+          let name = li.firstElementChild.textContent
+          myArr.splice(myArr.indexOf(name)+ 1, 1)
+          myArr.splice(myArr.indexOf(name), 1)
+          localStorage['str'] = myArr.join("*")
           //check if Message list is empty to hide Message heading again
           if(messageList.children.length === 0){
+            localStorage.removeItem('str')
             messageH2.style.display = 'none'
+            messageLink.style.display = 'none'
           }//end changing button name
         },
 
@@ -100,7 +131,6 @@ document.addEventListener('DOMContentLoaded', () => {
           li.insertBefore(input, span)
           li.removeChild(span)
 
-          //do nothing
           //change from edit to save
           if(button.innerHTML === 'edit'){
             button.innerHTML = 'save'
@@ -120,6 +150,12 @@ document.addEventListener('DOMContentLoaded', () => {
           if(button.innerHTML === 'save'){
             button.innerHTML = 'edit'
           }//end changing button name
+
+          /* editing from local storage */
+          let myArr = localStorage['str'].split("*")
+          let name = li.firstElementChild.textContent
+          myArr[myArr.indexOf(name) + 1] = li.innerHTML
+          localStorage['str'] = myArr.join("*")
         }
       }// end Object
       namedActions[action]();// run the function
