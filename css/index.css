@@ -10,9 +10,7 @@ html{
   font-family: "Josefin Sans", system-ui, cursive, Arial;
   font-weight: 600;
 }
-.break{
-  display: none;
-}
+
 body{
   padding: 0;
   margin: 0;
@@ -25,7 +23,7 @@ body{
  }
 }
 
-@media screen and (min-width: 980px) {
+@media screen and (min-width: 900px) {
   html{
     font-size: 130%;
     padding-right: 10rem;
@@ -131,7 +129,9 @@ form[name="leave_message"] button{
 #messages ul li a{
   text-decoration: none;
 }
-
+#messages ul li p{
+  margin-bottom: 0.5rem;
+}
 #messages ul li button{
   text-transform: capitalize;
   font-size: 1rem;
@@ -151,4 +151,8 @@ form[name="leave_message"] button{
 .img-size{
   width: 1.25rem;
   height: 1.25rem;
+}
+
+label, input, textarea{
+  display: block;
 }

@@ -75,7 +75,7 @@ form{
 }
 form button{
   margin-top: 0.5rem;
-  width: 50%;
+  width: 24vw;
 }
 
 footer{
@@ -98,9 +98,7 @@ footer{
  .nav a{
    font-size: 1rem;
  }
-.item-name label, #name{
-  display: block;
-}
+
 form{
    display: grid;
    grid-template-columns: repeat(2, 1fr);
