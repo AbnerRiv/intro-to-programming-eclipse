@@ -49,6 +49,11 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('str', '')
 
   }
+  const getTime = () =>{
+    // get today's date
+    let thisDay = new Date()
+    return thisDay.toLocaleString('en-US')
+  }
   //start From add action listener
   messageForm.addEventListener('submit', (e) => {
     e.preventDefault()
@@ -66,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     messageLink.style.display = ''
     //put list item messages in ul
     const newMessage = document.createElement('li')
-    newMessage.innerHTML = `<a href="mailto:${email}">${name}</a><span> wrote: ${message} </span>`
+    newMessage.innerHTML = `<p>${getTime()}</p><a href="mailto:${email}">${name}</a><span> wrote: ${message} </span>`
 
     //create Remove button
     const removeButton = document.createElement('button')
@@ -110,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
           /* erasing from local storage */
           //get the string and convert it to an array
           let myArr = localStorage['str'].split("*")
-          let name = li.firstElementChild.textContent
+          let name = li.firstElementChild.nextElementSibling.textContent
           myArr.splice(myArr.indexOf(name)+ 1, 1)
           myArr.splice(myArr.indexOf(name), 1)
           localStorage['str'] = myArr.join("*")
@@ -124,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         edit: () =>{
           const li = button.parentNode
-          const span = li.firstElementChild.nextElementSibling
+          const span = li.firstElementChild.nextElementSibling.nextElementSibling
           const input = document.createElement('input')
           input.type = 'text'
 
@@ -139,9 +144,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         save: () => {
           const li = button.parentNode
-          const input = li.firstElementChild.nextElementSibling
+          const input = li.firstElementChild.nextElementSibling.nextElementSibling
           const span = document.createElement('span')
           span.innerHTML = ` wrote: ${input.value} `
+
+          //changing time to last edited:
+          const myPara = li.firstElementChild
+          myPara.innerHTML = `${getTime()} (Last Edited)`
 
           li.insertBefore(span, input)
           li.removeChild(input)
@@ -153,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           /* editing from local storage */
           let myArr = localStorage['str'].split("*")
-          let name = li.firstElementChild.textContent
+          let name = li.firstElementChild.nextElementSibling.textContent
           myArr[myArr.indexOf(name) + 1] = li.innerHTML
           localStorage['str'] = myArr.join("*")
         }
