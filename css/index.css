@@ -84,6 +84,30 @@ h1, h2{
   margin-left: 0.25rem;
   margin-right: 0.25rem;
 }
+/* Line added for lesson 6.1 */
+#projects ul{
+  list-style-type: none;
+}
+#projects li{
+  margin-top: 1rem;
+  border: 8px solid;
+  border-image: linear-gradient(45deg, turquoise, white) 1;
+}
+#projects li a{
+  text-decoration: none;
+  display:inline-block;
+  max-width: auto;
+  padding: 0;
+  margin: 0.5rem 0 0.5rem 0.5rem;
+  color: black;
+  background-color: white;
+  border: 0.2rem solid;
+  border-image: linear-gradient(45deg, greenyellow, turquoise) 1;
+}
+#projects ul li p:last-child{
+  color: blue;
+}
+
 
 form[name="leave_message"] label{
   font-size: 1.25rem;
