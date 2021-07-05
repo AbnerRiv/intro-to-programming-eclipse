@@ -8,20 +8,20 @@
   "about"
   "experience"
   "skills"
+  "projects"
   "form "
   "form"
   "messages"
   "footer";
-  grid-gap: 15px;
+  grid-gap: 5px;
 }
 
 .about{
   grid-area: about;
-  margin-top: 4.8rem;
 }
 .nav{
   grid-area: nav;
-  position: fixed;
+  position: sticky;
   top: 0;
   width: 100%;
   display: flex;
@@ -47,6 +47,10 @@
 
 .skills{
   grid-area: skills;
+}
+/* Line added for lesson 6.1 */
+#projects{
+  grid-area: projects;
 }
 
 .form{
@@ -90,15 +94,19 @@ footer{
 @media screen and (min-width: 760px) {
 
  .nav{
+   position: fixed;
+   top: 0;
    flex-direction: row;
    justify-content: space-between;
    padding: 0.5rem;
-   position: sticky;
  }
  .nav a{
    font-size: 1rem;
  }
 
+ .about{
+   margin-top: 2.5rem;
+ }
 form{
    display: grid;
    grid-template-columns: repeat(2, 1fr);
@@ -122,9 +130,6 @@ form{
    grid-column: 1/2;
    grid-row: 3/4;
  }
- .about{
-   margin-top: 1.75rem;
- }
 
 .labelMessage{
     padding-top: 1rem;
@@ -142,6 +147,13 @@ form{
  .img-size{
    width: 1.75rem;
    height: 1.75rem;
+ }
+
+ .nav{
+   width: 98.5vw;
+ }
+ footer{
+   width: 98.5vw;
  }
 
 }/* End Media Query for Tablets */

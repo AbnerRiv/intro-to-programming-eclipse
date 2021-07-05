@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const messageList = messageSection.querySelector('ul')
 
   // set an empty string to keep adding things to it
-  if(localStorage.length !== 0 && localStorage['str'] !== ''){
+  if(localStorage['str'] !== undefined  && localStorage['str'] !== ''){
     let myArr = localStorage['str'].split("*")
     myArr.forEach( (item) => {
       if(item.includes("<a")){
@@ -52,6 +52,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const getTime = () =>{
     // get today's date
     let thisDay = new Date()
+    return thisDay.toLocaleString('en-US')
+  }
+
+// used to change to a more readable time format
+// than the default from created_at
+  const changeTime = (myStr) =>{
+    // get today's date
+    let thisDay = new Date(myStr)
     return thisDay.toLocaleString('en-US')
   }
   //start From add action listener
@@ -171,5 +179,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }// end checking if it's a button
   })// end messageList add action listener
+
+  /*
+  Code for Assignment for Lesson 6.1: Ajax Basics
+  */
+  let githubRequest = new XMLHttpRequest()
+  githubRequest.open("GET", "https://api.github.com/users/AbnerRiv/repos")
+  githubRequest.send()
+  githubRequest.addEventListener('load', () => {
+    let repositories = JSON.parse(githubRequest.responseText)
+    const projectSection = document.querySelector("#projects")
+    const projectList = projectSection.querySelector("ul")
+
+    repositories.forEach((item) => {
+      let project = document.createElement('li')
+      project.innerHTML =
+      `
+      <a href=${item.html_url} target="_blank" >${item.name}</a>
+      <p>Time of Creation: ${(changeTime(item.created_at))}</p>
+      <p>Main Language: ${item.language}</p>
+      <p>Description: ${item.description}</p>
+      `
+      projectList.appendChild(project)
+    });
+
+  })// end cevent listener for githubRequest
 
 })// end DOM Content Loaded
