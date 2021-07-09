@@ -27,7 +27,6 @@
         <a href="#projects">Projects</a>
         <a href="#form">Leave a Message</a>
         <a href="#messages">Messages</a>
-        <a href="#footer">Footer</a>
       </div>
       <!-- The About section-->
       <div class="about" id="about">
@@ -66,10 +65,12 @@
       <!-- Form Section -->
       <div class="form" id="form">
         <h2>Leave a Message</h2>
+        <p id="hint">Don't insert asterisks</p>
         <form name="leave_message">
-          <div class="item-name"><label for="name">Name</label><input id="name" type="text" name="name" required></div>
-          <div class="item-email"><label for="email">Email</label><input id="email" type="email" name="email" required></div>
-          <div class="item-message"><label for="message" class='labelMessage'>Message</label><textarea id="message" name="message" required></textarea></div>
+          <!-- The title and value atributes are tooltips for users -->
+          <div class="item-name"><label for="name">Name</label><input id="name" type="text" name="name" required title="Don't Insert asterisk: *"></div>
+          <div class="item-email"><label for="email">Email</label><input id="email" type="email" name="email" required title="Don't Insert asterisk: *"></div>
+          <div class="item-message"><label for="message" class='labelMessage'>Message</label><textarea id="message" name="message" required title="Don't Insert asterisk: *"></textarea></div>
           <div class="item-button"><button type="submit">Submit</button></div>
         </form>
       </div>

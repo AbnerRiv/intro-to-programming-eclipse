@@ -79,7 +79,7 @@ form{
 }
 form button{
   margin-top: 0.5rem;
-  width: 24vw;
+  max-width: 50%;
 }
 
 footer{
@@ -139,7 +139,7 @@ form{
    margin-top: 0.1rem;
    margin-bottom: 1rem;
    margin-left: 0.5rem;
-   width: 40%;
+   width: 50%;
  }
  form[name="leave_message"] textarea, #messages ul li span, #messages ul li a, #messages ul li input{
    font-size: 1.2rem;
@@ -160,9 +160,9 @@ form{
 
 @media screen and (min-width: 900px) {
   .nav{
-      width: 75vw;
+      width: 75.5vw;
   }
   footer{
-    width: 75vw;
+    width: 75.5vw;
   }
 }
