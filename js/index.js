@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
     messageH2.style.display = 'none'
     messageLink.style.display = 'none'
     localStorage.setItem('str', '')
-
   }
+
   const getTime = () =>{
     // get today's date
     let thisDay = new Date()
@@ -56,12 +56,54 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 // used to change to a more readable time format
-// than the default from created_at
+// than the default from created_at from JSON object
   const changeTime = (myStr) =>{
     // get today's date
     let thisDay = new Date(myStr)
     return thisDay.toLocaleString('en-US')
   }
+
+/* Check input from user because the character "*"
+   will crash the page due to how LocalStorage.str is set up.
+   Using method bubbling check input for messageForm and messageSection */
+   function checkFormInput(){
+     const submitButton = messageForm.lastElementChild.firstElementChild
+     const nameInput = document.querySelector('#name')
+     const emailInput = document.querySelector('#email')
+     const messageInput = document.querySelector('#message')
+
+     if(nameInput.value.includes('*') || emailInput.value.includes('*') ||
+        messageInput.value.includes('*')){
+      submitButton.disabled = true;
+      submitButton.style.color = '#f2edf4'
+      submitButton.style.backgroundColor = '#f7f7f7'
+    }else{
+      submitButton.disabled = false;
+      submitButton.style.color = '#4904dd'
+      submitButton.style.backgroundColor = '#efefef'
+    }// end if else
+  }
+
+  function checkListInput(e){
+    if(e.target.tagName === 'INPUT'){
+      const input = e.target
+      const saveButton = input.nextElementSibling.nextElementSibling
+      if( input.value.includes('*')){
+        saveButton.disabled = true;
+        saveButton.style.color = '#f2edf4'
+        saveButton.style.backgroundColor = '#f7f7f7'
+      }else{
+        saveButton.disabled = false;
+        saveButton.style.color = '#4904dd'
+        saveButton.style.backgroundColor = '#efefef'
+      }// enc checking if-else
+    }//end check if it's an input
+  }// enc checking checkListInput
+
+  messageForm.addEventListener('input', checkFormInput);
+  //add this listener after all buttons are clicked
+  messageSection.addEventListener('input', checkListInput);
+
   //start From add action listener
   messageForm.addEventListener('submit', (e) => {
     e.preventDefault()
@@ -102,6 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     localStorage['str'] += name + "*"
     localStorage['str'] += newMessage.innerHTML + "*"
+
   })// end messageFrom action listener
 
 
@@ -140,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const span = li.firstElementChild.nextElementSibling.nextElementSibling
           const input = document.createElement('input')
           input.type = 'text'
+          input.title = "Don't Insert asterisk: *"
 
           li.insertBefore(input, span)
           li.removeChild(span)
@@ -151,10 +195,15 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         save: () => {
+
           const li = button.parentNode
           const input = li.firstElementChild.nextElementSibling.nextElementSibling
+
+          // ensure that the input is not empty
+          if(input.value.length !== 0){
           const span = document.createElement('span')
           span.innerHTML = ` wrote: ${input.value} `
+
 
           //changing time to last edited:
           const myPara = li.firstElementChild
@@ -173,7 +222,12 @@ document.addEventListener('DOMContentLoaded', () => {
           let name = li.firstElementChild.nextElementSibling.textContent
           myArr[myArr.indexOf(name) + 1] = li.innerHTML
           localStorage['str'] = myArr.join("*")
+        }else{
+          //alert that input cannot be empty
+          alert('Input cannot be empty')
         }
+
+        }// end save
       }// end Object
       namedActions[action]();// run the function
 
@@ -181,28 +235,43 @@ document.addEventListener('DOMContentLoaded', () => {
   })// end messageList add action listener
 
   /*
-  Code for Assignment for Lesson 6.1: Ajax Basics
-  */
-  let githubRequest = new XMLHttpRequest()
-  githubRequest.open("GET", "https://api.github.com/users/AbnerRiv/repos")
-  githubRequest.send()
-  githubRequest.addEventListener('load', () => {
-    let repositories = JSON.parse(githubRequest.responseText)
-    const projectSection = document.querySelector("#projects")
-    const projectList = projectSection.querySelector("ul")
+   Code for Assignment 6.2 Week 07/07
+   */
+   function fetchData(url){
+     return fetch(url)
+            .then(checkStatus)
+            .then(result => result.json())
+            .then(showRepos)
+            .catch(error => alert('Looks like there was a problem connecting to Github'))
+   }
 
-    repositories.forEach((item) => {
-      let project = document.createElement('li')
-      project.innerHTML =
-      `
-      <a href=${item.html_url} target="_blank" >${item.name}</a>
-      <p>Time of Creation: ${(changeTime(item.created_at))}</p>
-      <p>Main Language: ${item.language}</p>
-      <p>Description: ${item.description}</p>
-      `
-      projectList.appendChild(project)
-    });
+    function checkStatus(response){
+      if(response.ok){
+        return Promise.resolve(response)
+      }else{
+        return Promise.reject()
+      }
+    }
 
-  })// end cevent listener for githubRequest
+    function showRepos(repositories){
+      const projectSection = document.querySelector("#projects")
+      const projectList = projectSection.querySelector("ul")
+      //got through every repo with foreach
+      repositories.forEach(({html_url, name, created_at, language, description}) => {
+        const project = document.createElement('li')
+
+        //add links for repos and paragraphs for additional info
+        project.innerHTML =
+        `
+        <a href="${html_url}" target="_blank" >${name}</a>
+        <p>Time of Creation: ${(changeTime(created_at))}</p>
+        <p>Main Language: ${language}</p>
+        <p>Description: ${description}</p>
+        `
+        projectList.appendChild(project)
+      }); // end foreach
+    }
+
+    fetchData("https://api.github.com/users/AbnerRiv/repos")
 
 })// end DOM Content Loaded

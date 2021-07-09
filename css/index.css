@@ -104,11 +104,23 @@ h1, h2{
   border: 0.2rem solid;
   border-image: linear-gradient(45deg, greenyellow, turquoise) 1;
 }
+
+#projects li a:hover{
+  background-color: #db722b;
+  color: white;
+}
+
 #projects ul li p:last-child{
   color: blue;
 }
 
-
+#hint{
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  color: #4904dd;
+  border: 8px solid;
+  border-image: linear-gradient(to left, white, turquoise) 1 0;
+}
 form[name="leave_message"] label{
   font-size: 1.25rem;
   color: #4904dd;
@@ -128,6 +140,7 @@ form[name="leave_message"] button{
   color: #4904dd;
   font-size: 1rem;
   padding: 0.50rem;
+  text-align: center;
 }
 #messages ul{
   padding: 0;
